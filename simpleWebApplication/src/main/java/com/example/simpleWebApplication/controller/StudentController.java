@@ -1,14 +1,9 @@
 package com.example.simpleWebApplication.controller;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.simpleWebApplication.model.Student;
 import com.example.simpleWebApplication.service.StudentService;
@@ -22,7 +17,7 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping("/student")
-    public ArrayList<Student> getAllStudents() {
+    public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
@@ -41,6 +36,12 @@ public class StudentController {
     public String updateStudent(@PathVariable int id, @RequestBody Student entity) {
         studentService.updateStudent(id,entity);
         return "Updated the student detials for the id"+id+" Successfully";
+    }
+
+    @DeleteMapping("student/{id}")
+    public String deleteStudent(@PathVariable int id){
+        studentService.deleteStudent(id);
+        return "Delted the id successfully";
     }
     
 }

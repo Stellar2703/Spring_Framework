@@ -261,3 +261,4 @@ Using JpaRepository
 - Use @Repository to mark the interface as the repository layer.
 - The JpaRepository parameters are the entity class and the primary key type.
 
+

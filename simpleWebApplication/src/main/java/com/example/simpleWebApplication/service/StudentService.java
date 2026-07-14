@@ -1,44 +1,45 @@
 package com.example.simpleWebApplication.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.simpleWebApplication.model.Student;
+import com.example.simpleWebApplication.repository.StudentRepo;
 
 @Service
 public class StudentService {
 
-    ArrayList<Student> students = new ArrayList<>(
-    Arrays.asList(
-        new Student(1, "John Doe", 20, "john.doe@example.com"),
-        new Student(2, "Jane Smith", 22, "jane.smith@example.com")
-    )
-);
+    @Autowired
+    StudentRepo repo;
+//    ArrayList<Student> students = new ArrayList<>(
+//    Arrays.asList(
+//        new Student(1, "John Doe", 20, "john.doe@example.com"),
+//        new Student(2, "Jane Smith", 22, "jane.smith@example.com")
+//    )
+//);
     
-    public ArrayList<Student> getAllStudents() {
-        return students;
+//    public List<Student> getAllStudents() {
+//        return repo.findAll();
+//    }
+
+    public List<Student> getAllStudents(){
+        return repo.findAll();
     }
 
     public Student getStudentById(int id){
-        for(Student student : students){
-            if(student.id == id){
-                return student;
-            }
-        }
-        return null;
+        return repo.findById(id).orElse(new Student());
     }
     public void addStudent(Student student){
-        students.add(student);
+        repo.save(student);
     }
 
     public void updateStudent(int id,Student entity){
-        for(Student s : students){
-            if(s.id==id){
-                s.name = entity.name;
-                s.age = entity.age;
-            }
-        }
+        repo.save(entity);
+    }
+    public void deleteStudent(int id){
+        repo.deleteById(id);
     }
 }
